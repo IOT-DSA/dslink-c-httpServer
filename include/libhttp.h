@@ -1,0 +1,32 @@
+//
+// Created by daniel on 1/30/17.
+//
+
+#ifndef SDK_DSLINK_C_LIBHTTP_H
+#define SDK_DSLINK_C_LIBHTTP_H
+
+/*
+ * Functions for parsing an HTTP request.
+ */
+struct http_request {
+    char *method;
+    char *path;
+};
+
+struct http_request *http_request_parse(int fd);
+
+/*
+ * Functions for sending an HTTP response.
+ */
+void http_start_response(int fd, int status_code);
+void http_send_header(int fd, char *key, char *value);
+void http_end_headers(int fd);
+void http_send_string(int fd, char *data);
+void http_send_data(int fd, char *data, size_t size);
+
+/*
+ * Helper function: gets the Content-Type based on a file name.
+ */
+char *http_get_mime_type(char *file_name);
+
+#endif //SDK_DSLINK_C_LIBHTTP_H
